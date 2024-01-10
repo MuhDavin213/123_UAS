@@ -1,3 +1,24 @@
 <resources>
-    <string name="app_name">TheElektronik</string>
+    <string name="app_name">My Elektronik</string>
+    <string name="entry_kontak">Tambah Barang</string>
+    <string name="deskripsi_no_item">Tidak ada data Barang. Tap + untuk menambah data</string>
+    <string name="nama_barang">Nama Barang</string>
+    <string name="jenis_barang">Jenis Barang</string>
+    <string name="jumlah_barang">Jumlah Barang</string>
+    <string name="harga_barang">Harga Barang</string>
+    <string name="nama_barang1">Nama Barang :</string>
+    <string name="jenis_barang1">Jenis Barang :</string>
+    <string name="jumlah_barang1">Jumlah Barang :</string>
+    <string name="harga_barang1">Harga Barang :</string>
+    <string name="required_field">required fields</string>
+    <string name="btn_submit">Submit</string>
+    <string name="detail_kontak">Detail Barang</string>
+    <string name="edit_kontak">Edit Barang</string>
+    <string name="back">Back</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="delete">Hapus</string>
+    <string name="update">Edit</string>
+    <string name="attention">Perhatian</string>
+    <string name="tanya">Apakah anda yakin menghapus ini?</string>
 </resources>
