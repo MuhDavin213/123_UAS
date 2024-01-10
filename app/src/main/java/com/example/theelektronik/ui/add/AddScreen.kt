@@ -21,12 +21,17 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.theelektronik.R
+import com.example.theelektronik.navigation.DestinasiNavigasi
 import com.example.theelektronik.ui.DetailProduk
 import com.example.theelektronik.ui.PenyediaViewModel
 import com.example.theelektronik.ui.ProdukTopAppBar
 import com.example.theelektronik.ui.UIStateProduk
 import kotlinx.coroutines.launch
 
+object DestinasiProduk : DestinasiNavigasi.DestinasiNavigasi {
+    override val route = "item_entry"
+    override val titleRes = "Entry Produk"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

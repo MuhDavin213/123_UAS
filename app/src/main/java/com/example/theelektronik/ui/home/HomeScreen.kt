@@ -32,9 +32,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.theelektronik.model.Produk
+import com.example.theelektronik.navigation.DestinasiNavigasi
 import com.example.theelektronik.ui.PenyediaViewModel
 import com.example.theelektronik.ui.ProdukTopAppBar
 
+
+object DestinasiHome : DestinasiNavigasi.DestinasiNavigasi {
+    override val route = "home"
+    override val titleRes = "Produk"
+}
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
