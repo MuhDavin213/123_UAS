@@ -1,5 +1,6 @@
 package com.example.theelektronik.ui.home
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,16 +30,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.theelektronik.R
 import com.example.theelektronik.model.Produk
 import com.example.theelektronik.navigation.DestinasiNavigasi
 import com.example.theelektronik.ui.PenyediaViewModel
 import com.example.theelektronik.ui.ProdukTopAppBar
 
 
-object DestinasiHome : DestinasiNavigasi.DestinasiNavigasi {
+object DestinasiHome : DestinasiNavigasi {
     override val route = "home"
     override val titleRes = "Produk"
 }
@@ -52,7 +56,7 @@ fun HomeScreen(
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier,
         topBar = {
             ProdukTopAppBar(
                 title = "Produk",
@@ -73,13 +77,21 @@ fun HomeScreen(
             }
         },
     ) { innerPadding ->
-        val uiStateSiswa by viewModel.homeUIState.collectAsState()
+        val uiStateProduk by viewModel.homeUIState.collectAsState()
         BodyHome(
-            itemProduk = uiStateSiswa.listProduk,
+            itemProduk = uiStateProduk.listProduk,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize(),
-            onSiswaClick = onDetailClick
+            onProdukClick = onDetailClick
+        )
+        // Menambahkan gambar dari drawable
+        Image(
+            painter = painterResource(id = R.drawable.elektro), // Ganti dengan nama gambar Anda
+            contentDescription = "Deskripsi gambar",
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
         )
     }
 }
@@ -88,7 +100,7 @@ fun HomeScreen(
 fun BodyHome(
     itemProduk: List<Produk>,
     modifier: Modifier = Modifier,
-    onSiswaClick: (String) -> Unit = {}
+    onProdukClick: (String) -> Unit = {}
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -105,7 +117,7 @@ fun BodyHome(
                 itemProduk = itemProduk,
                 modifier = Modifier
                     .padding(horizontal = 8.dp),
-                onItemClick = { onSiswaClick(it.id) }
+                onItemClick = { onProdukClick(it.id) }
             )
         }
     }
@@ -154,7 +166,7 @@ fun DataProduk(
                 )
                 Spacer(Modifier.weight(1f))
                 Icon(
-                    imageVector = Icons.Default.Phone,
+                    imageVector = Icons.Default.Star,
                     contentDescription = null,
                 )
                 Text(

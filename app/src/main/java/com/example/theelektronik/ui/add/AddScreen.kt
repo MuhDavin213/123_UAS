@@ -28,7 +28,7 @@ import com.example.theelektronik.ui.ProdukTopAppBar
 import com.example.theelektronik.ui.UIStateProduk
 import kotlinx.coroutines.launch
 
-object DestinasiProduk : DestinasiNavigasi.DestinasiNavigasi {
+object DestinasiProduk : DestinasiNavigasi{
     override val route = "item_entry"
     override val titleRes = "Entry Produk"
 }
@@ -45,6 +45,12 @@ fun AddScreen(
     Scaffold (
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
+            ProdukTopAppBar(
+                title = DestinasiProduk.titleRes,
+                canNavigateBack = true,
+                scrollBehavior = scrollBehavior,
+                navigateUp = navigateBack
+            )
         }
     ) { innerPadding ->
 

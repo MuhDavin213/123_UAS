@@ -41,7 +41,7 @@ import com.example.theelektronik.ui.toProduk
 import kotlinx.coroutines.launch
 
 
-object DetailDestination : DestinasiNavigasi.DestinasiNavigasi {
+object DetailDestination : DestinasiNavigasi {
     override val route = "item_details"
     override val titleRes = "Detail Produk"
     const val produkId = "itemId"

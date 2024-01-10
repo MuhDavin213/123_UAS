@@ -21,7 +21,7 @@ interface ProdukRepositori{
 class ProdukRepositoriImpl(private val firestore: FirebaseFirestore):ProdukRepositori{
     override fun getAll(): Flow<List<Produk>> = flow{
         val snapshot = firestore.collection("Produk")
-            .orderBy("nama", Query.Direction.ASCENDING)
+            .orderBy("namaProduk", Query.Direction.ASCENDING)
             .get()
             .await()
         val produk = snapshot.toObjects(Produk::class.java)
@@ -30,8 +30,7 @@ class ProdukRepositoriImpl(private val firestore: FirebaseFirestore):ProdukRepos
 
     override suspend fun save(produk: Produk): String {
         return try {
-            val documentReference = firestore.collection("Produk" +
-                    "").add(produk).await()
+            val documentReference = firestore.collection("Produk").add(produk).await()
 
             firestore.collection("Produk").document(documentReference.id)
                 .set(produk.copy(id = documentReference.id))
@@ -54,8 +53,12 @@ class ProdukRepositoriImpl(private val firestore: FirebaseFirestore):ProdukRepos
         return flow {
             val snapshot = firestore.collection("Produk").document(produkId).get().await()
             val produk = snapshot.toObject(Produk::class.java)
-            emit(produk!!)
-        }.flowOn(Dispatchers.IO)
+            produk?.let {
+                emit(it)
+            }?:run{
+                emit(Produk())
+            }
+        }
     }
 
 }

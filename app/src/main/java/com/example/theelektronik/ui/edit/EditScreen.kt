@@ -16,7 +16,7 @@ import com.example.theelektronik.ui.ProdukTopAppBar
 import com.example.theelektronik.ui.add.AddProdukBody
 import kotlinx.coroutines.launch
 
-object EditDestination : DestinasiNavigasi.DestinasiNavigasi {
+object EditDestination : DestinasiNavigasi{
     override val route = "item_edit"
     override val titleRes ="Edit Produk"
     const val produkId = "itemId"
