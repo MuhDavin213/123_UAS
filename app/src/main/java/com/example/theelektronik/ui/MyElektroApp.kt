@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.example.theelektronik.model.Produk
+import com.example.theelektronik.navigation.PengelolaHalaman
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,7 +34,7 @@ fun MyElektroApp(
                 .fillMaxSize()
                 .padding(it)
         ) {
-
+            PengelolaHalaman()
         }
     }
 }
