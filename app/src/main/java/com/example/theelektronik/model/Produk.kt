@@ -5,6 +5,7 @@ data class Produk(
     val namaProduk: String,
     val jenisProduk: String,
     val jumlahProduk: String,
+    val hargaProduk: String,
 ){
-    constructor():this("","","","")
+    constructor():this("","","","","")
 }
