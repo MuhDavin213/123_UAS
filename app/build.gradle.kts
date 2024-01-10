@@ -1,11 +1,12 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
 }
 
 android {
     namespace = "com.example.theelektronik"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.theelektronik"
@@ -38,7 +39,6 @@ android {
     }
     buildFeatures {
         compose = true
-        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
@@ -60,13 +60,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    implementation("androidx.room:room-common:2.6.1")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.8.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.annotation:annotation:1.6.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("com.google.firebase:firebase-firestore:24.10.0")
+    implementation("com.google.firebase:firebase-database:20.3.0")
     testImplementation("junit:junit:4.13.2")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -75,8 +70,5 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-
-    implementation("androidx.room:room-runtime:$2.6.1")
-    annotationProcessor("androidx.room:room-compiler:$2.6.1")
 
 }
