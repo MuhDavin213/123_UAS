@@ -13,6 +13,7 @@ import kotlinx.coroutines.tasks.await
 
 interface ProdukRepositori{
     fun getAll(): Flow<List<Produk>>
+    fun getSiswaStream(id: Int): Flow<Produk?>
     suspend fun save(produk: Produk):String
     suspend fun update(produk: Produk)
     suspend fun delete(produkId: String)
@@ -27,6 +28,10 @@ class ProdukRepositoriImpl(private val firestore: FirebaseFirestore):ProdukRepos
         val produk = snapshot.toObjects(Produk::class.java)
         emit(produk)
     }.flowOn(Dispatchers.IO)
+
+    override fun getSiswaStream(id: Int): Flow<Produk?> {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun save(produk: Produk): String {
         return try {

@@ -29,8 +29,15 @@ class HomeViewModel(private val produkRepositori: ProdukRepositori) : ViewModel(
 
     val homeUIState: StateFlow<HomeUIState> = produkRepositori.getAll()
         .filterNotNull()
-        .map {
-            HomeUIState (listProduk = it.toList(), it.size ) }
+        .map {produkList ->
+            val filteredList = produkList.filter { produk ->
+                produk.namaProduk.contains(_searchQuery.value, ignoreCase = true) ||
+                        produk.jenisProduk.contains(_searchQuery.value, ignoreCase = true) ||
+                        produk.hargaProduk.contains(_searchQuery.value, ignoreCase = true) ||
+                        produk.jumlahProduk.contains(_searchQuery.value, ignoreCase = true)
+
+            }
+            HomeUIState (listProduk = filteredList) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
@@ -42,3 +49,6 @@ class HomeViewModel(private val produkRepositori: ProdukRepositori) : ViewModel(
     }
 
 }
+data class HomeUiState(
+    val listKontak: List<Produk> = listOf()
+)
