@@ -1,6 +1,8 @@
 package com.example.theelektronik.ui.home
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,7 +16,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -35,6 +36,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -68,7 +71,7 @@ fun HomeScreen(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             ProdukTopAppBar(
-                title = "Produk",
+                title = "The Elektronik",
                 canNavigateBack = false,
                 scrollBehavior = scrollBehavior
             )
@@ -78,6 +81,8 @@ fun HomeScreen(
                 onClick = navigateToItemEntry,
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(18.dp)
+                    .padding(18.dp)
+                    .animateContentSize()
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
@@ -92,7 +97,7 @@ fun HomeScreen(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize(),
-            onProdukClick = onDetailClick,
+            onProducClick = onDetailClick,
             onSearchQueryChanged = { query: String ->
                 viewModel.setSearchQuery(query)
             }
@@ -111,16 +116,19 @@ fun HomeScreen(
 fun BodyHome(
     itemProduk: List<Produk>,
     modifier: Modifier = Modifier,
-    onProdukClick: (String) -> Unit = {},
+    onProducClick: (String) -> Unit = {},
     onSearchQueryChanged: (String) -> Unit,
     onSearchClear: () -> Unit = {}
 ) {
-    var searchQuery by remember {
-        mutableStateOf("")
+    var searchQuery by remember { mutableStateOf("")
     }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier = modifier.background(
+            brush = Brush.verticalGradient(
+                colors = listOf(Color(919191), Color(919191)),
+            )
+        )
     ) {
 
         SearchBar(
@@ -147,6 +155,7 @@ fun BodyHome(
             val filteredList = itemProduk.filter { produk ->
                 produk.namaProduk.contains(searchQuery, ignoreCase = true) ||
                         produk.jenisProduk.contains(searchQuery, ignoreCase = true) ||
+                        produk.jumlahProduk.contains(searchQuery, ignoreCase = true) ||
                         produk.hargaProduk.contains(searchQuery, ignoreCase = true)
             }
 
@@ -158,10 +167,10 @@ fun BodyHome(
                 )
             } else {
                 ListProduk(
-                    itemProduk = itemProduk,
+                    itemProduk = filteredList,
                     modifier = Modifier
                         .padding(horizontal = 8.dp),
-                    onItemClick = { onProdukClick(it.id) }
+                    onItemClick = { onProducClick(it.id) }
                 )
             }
         }

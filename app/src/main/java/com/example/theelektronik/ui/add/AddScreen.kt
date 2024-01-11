@@ -1,10 +1,15 @@
 package com.example.theelektronik.ui.add
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,6 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.theelektronik.R
 import com.example.theelektronik.navigation.DestinasiNavigasi
@@ -30,7 +37,7 @@ import kotlinx.coroutines.launch
 
 object DestinasiProduk : DestinasiNavigasi{
     override val route = "item_entry"
-    override val titleRes = "Entry Produk"
+    override val titleRes = "Tambahkan Produk"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,7 +50,9 @@ fun AddScreen(
     val coroutineScope = rememberCoroutineScope()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold (
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.background)
+            .fillMaxSize(),
         topBar = {
             ProdukTopAppBar(
                 title = DestinasiProduk.titleRes,
@@ -53,7 +62,6 @@ fun AddScreen(
             )
         }
     ) { innerPadding ->
-
         AddProdukBody(
             uiStateProduk = viewModel.uiStateProduk,
             onProdukValueChange = viewModel::updateUiState,
@@ -65,7 +73,6 @@ fun AddScreen(
             },
             modifier = Modifier
                 .padding(innerPadding)
-                .verticalScroll(rememberScrollState())
                 .fillMaxWidth()
         )
     }
@@ -79,18 +86,22 @@ fun AddProdukBody(
     modifier: Modifier = Modifier
 ) {
     Column (
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_large)),
-        modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+        modifier = modifier
+            .padding(dimensionResource(id = R.dimen.padding_large))
+            .fillMaxWidth()
     ){
         FormInput(
             detailProduk = uiStateProduk.detailProduk,
             onValueChange = onProdukValueChange,
             modifier = Modifier.fillMaxWidth()
         )
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_large)))
         Button(
             onClick = onSaveClick,
-            shape = MaterialTheme.shapes.small,
-            modifier = Modifier.fillMaxWidth()
+            shape = MaterialTheme.shapes.medium,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
         ) {
             Text(stringResource(R.string.btn_submit))
         }
@@ -106,7 +117,10 @@ fun FormInput(
     enabled: Boolean = true
 ) {
     Column (
-        modifier = modifier,
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.surface)
+            .padding(dimensionResource(id = R.dimen.padding_medium))
+            .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ){
         OutlinedTextField(
@@ -115,7 +129,8 @@ fun FormInput(
             label = { Text(stringResource(R.string.nama_barang)) },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
-            singleLine = true
+            singleLine = true,
+            textStyle = MaterialTheme.typography.bodySmall
         )
         OutlinedTextField(
             value = detailProduk.jenisProduk,
@@ -123,7 +138,8 @@ fun FormInput(
             label = { Text(stringResource(R.string.jenis_barang)) },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
-            singleLine = true
+            singleLine = true,
+            textStyle = MaterialTheme.typography.bodySmall
         )
         OutlinedTextField(
             value = detailProduk.jumlahProduk,
@@ -131,7 +147,8 @@ fun FormInput(
             label = { Text(stringResource(R.string.jumlah_barang)) },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
-            singleLine = true
+            singleLine = true,
+            textStyle = MaterialTheme.typography.bodySmall
         )
         OutlinedTextField(
             value = detailProduk.hargaProduk,
@@ -139,8 +156,9 @@ fun FormInput(
             label = { Text(stringResource(R.string.harga_barang)) },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
-            singleLine = true
+            singleLine = true,
+            textStyle = MaterialTheme.typography.bodySmall,
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
         )
-
     }
 }

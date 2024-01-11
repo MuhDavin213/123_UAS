@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.theelektronik.ui.Dasboard
 import com.example.theelektronik.ui.MyElektroApp
 import com.example.theelektronik.ui.theme.TheElektronikTheme
 import com.google.firebase.Firebase
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MyElektroApp()
+                    Dasboard()
                 }
             }
         }

@@ -27,7 +27,7 @@ class HomeViewModel(private val produkRepositori: ProdukRepositori) : ViewModel(
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> get() = _searchQuery
 
-    val homeUIState: StateFlow<HomeUIState> = produkRepositori.getAll()
+    val homeUIState: StateFlow<HomeUIState> = produkRepositori.getAllProdukStream()
         .filterNotNull()
         .map {produkList ->
             val filteredList = produkList.filter { produk ->

@@ -12,15 +12,15 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
 
 interface ProdukRepositori{
-    fun getAll(): Flow<List<Produk>>
-    fun getSiswaStream(id: Int): Flow<Produk?>
+    fun getAllProdukStream(): Flow<List<Produk>>
+    fun getProdukStream(id: Int): Flow<Produk?>
     suspend fun save(produk: Produk):String
     suspend fun update(produk: Produk)
     suspend fun delete(produkId: String)
     fun getProdukById(produkId: String): Flow<Produk>
 }
 class ProdukRepositoriImpl(private val firestore: FirebaseFirestore):ProdukRepositori{
-    override fun getAll(): Flow<List<Produk>> = flow{
+    override fun getAllProdukStream(): Flow<List<Produk>> = flow{
         val snapshot = firestore.collection("Produk")
             .orderBy("namaProduk", Query.Direction.ASCENDING)
             .get()
@@ -29,7 +29,7 @@ class ProdukRepositoriImpl(private val firestore: FirebaseFirestore):ProdukRepos
         emit(produk)
     }.flowOn(Dispatchers.IO)
 
-    override fun getSiswaStream(id: Int): Flow<Produk?> {
+    override fun getProdukStream(id: Int): Flow<Produk?> {
         TODO("Not yet implemented")
     }
 
@@ -59,7 +59,7 @@ class ProdukRepositoriImpl(private val firestore: FirebaseFirestore):ProdukRepos
             val snapshot = firestore.collection("Produk").document(produkId).get().await()
             val produk = snapshot.toObject(Produk::class.java)
             produk?.let {
-                emit(it)
+                emit(produk)
             }?:run{
                 emit(Produk())
             }
