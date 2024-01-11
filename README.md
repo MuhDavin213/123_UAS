@@ -1,4 +1,4 @@
-![image](https://github.com/MuhDavin213/App_TheElektronik/assets/114916198/1b90eda7-6fdf-4f6b-a39c-ca53b04ed468)
+![image](https://github.com/MuhDavin213/App_TheElektronik/assets/114916198/7aa97c21-8f30-4af8-87ab-9158e9a7ebf8)
 
 
 Description Aplication
