@@ -6,6 +6,7 @@ import com.example.theelektronik.data.ProdukRepositori
 import com.example.theelektronik.model.Produk
 import com.example.theelektronik.ui.HomeUIState
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
@@ -23,6 +24,8 @@ class HomeViewModel(private val produkRepositori: ProdukRepositori) : ViewModel(
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L
     }
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> get() = _searchQuery
 
     val homeUIState: StateFlow<HomeUIState> = produkRepositori.getAll()
         .filterNotNull()
@@ -34,5 +37,8 @@ class HomeViewModel(private val produkRepositori: ProdukRepositori) : ViewModel(
             initialValue = HomeUIState()
 
         )
+    fun setSearchQuery(query: String) {
+        _searchQuery.value = query
+    }
 
 }
